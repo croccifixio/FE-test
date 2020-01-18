@@ -1,0 +1,13 @@
+version: "3"
+services:
+  malta-back:
+    build:
+      context: ./backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/home/node/code
+      - ./.env:/home/node/.env
+      - /home/node/code/node_modules
+    stdin_open: true
+    tty: true
