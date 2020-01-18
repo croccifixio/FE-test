@@ -1,0 +1,19 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon -L"
+  },
+  "author": "Emmanuel Odongo",
+  "license": "MIT",
+  "dependencies": {
+    "@hapi/hapi": "^19.0.5",
+    "axios": "^0.19.1",
+    "dotenv": "^8.2.0",
+    "hapi-cors": "^1.0.3",
+    "nodemon": "^2.0.2",
+    "ramda": "^0.26.1"
+  }
+}
