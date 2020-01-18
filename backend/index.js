@@ -1,13 +1,35 @@
 'use strict'
 require('dotenv').config({ path: '../.env' })
 
+const axios = require('axios')
 const hapi = require('@hapi/hapi')
+const R = require('ramda')
 
 const API_URL = process.env.API_URL
 const COUNTRIES_ENDPOINT = process.env.API_URL
 const FRONTEND_PORT = process.env.FRONTEND_PORT
 const FRONTEND_URL = process.env.FRONTEND_URL
 const PORT = process.env.BACKEND_PORT
+
+axios.defaults.baseURL = API_URL
+
+const processCountry = (country) => {
+  const {
+    capital,
+    languages,
+    name,
+    region,
+    topLevelDomain,
+  } = country
+
+  return {
+    capital,
+    continent: region,
+    languages: R.pluck('name')(languages),
+    name,
+    tlds: topLevelDomain,
+  }
+}
 
 const init = async () => {
   const server = hapi.server({
@@ -25,8 +47,15 @@ const init = async () => {
       handler: async (request) => {
         const { name } = request.params
 
-        return {
-          name,
+        try {
+          const response = await axios.get(`/name/${name}`)
+
+          return processCountry(response.data[0])
+        }
+        catch (error) {
+          return {
+            err: `Unable to process request: ${error}`
+          }
         }
       },
     },
