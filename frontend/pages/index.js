@@ -1,4 +1,5 @@
 import Input from '../components/Input'
+import '../styles/main.styl'
 
 const Index = () => (
   <div className="wrapper">

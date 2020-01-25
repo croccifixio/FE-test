@@ -31,18 +31,24 @@ const Input = () => {
       }
 
       {!isSearching && Object.keys(results).length > 0 &&
-        <div>
-          <h2>{results.name}</h2>
-          <h3>{results.capital}</h3>
-          <h4>{results.continent}</h4>
-          <p>Languages:</p>
-          <ul>
-            {results.languages.map(language => (<li>{language}</li>))}
-          </ul>
-          <p>TLDs:</p>
-          <ul>
-            {results.tlds.map(tld => (<li>{tld}</li>))}
-          </ul>
+        <div className="card">
+          <h2 className="title">{results.name}</h2>
+          <div className="subtitle">{results.capital}</div>
+          <div className="tag">{results.continent}</div>
+          <div className="lists">
+            <div className="list">
+              <div>Languages:</div>
+              <ul>
+                {results.languages.map(language => (<li>{language}</li>))}
+              </ul>
+            </div>
+            <div className="list">
+              <div>TLDs:</div>
+              <ul>
+                {results.tlds.map(tld => (<li>{tld}</li>))}
+              </ul>
+            </div>
+          </div>
         </div>
       }
     </div>
