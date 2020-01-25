@@ -9,7 +9,6 @@ const API_URL = process.env.API_URL
 const COUNTRIES_ENDPOINT = process.env.API_URL
 const FRONTEND_PORT = process.env.FRONTEND_PORT
 const FRONTEND_URL = process.env.FRONTEND_URL
-const PORT = process.env.BACKEND_PORT
 
 axios.defaults.baseURL = API_URL
 
@@ -33,7 +32,7 @@ const processCountry = (country) => {
 
 const init = async () => {
   const server = hapi.server({
-    port: PORT,
+    port: '3000',
     host: '0.0.0.0',
     routes: {
       cors: false,
