@@ -1,13 +1,14 @@
-import Input from '../components/Input'
+import { compose } from 'recompose'
+import { connect } from 'react-redux'
+
+import Page from '../containers/page'
+import { setCountry } from '../actions'
 import '../styles/main.styl'
 
-const Index = () => (
-  <div className="wrapper">
-    <h1>Country Search</h1>
-    <form className="form">
-      <Input />
-    </form>
-  </div>
-)
+const Index = compose()(Page)
 
-export default Index
+Index.getInitialProps = ({ req }) => ({
+  isServer: !!req
+})
+
+export default connect()(Index)

@@ -1,0 +1,2 @@
+export const COUNTRY_CLEAR = 'COUNTRY_CLEAR'
+export const COUNTRY_SET = 'COUNTRY_SET'

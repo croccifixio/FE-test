@@ -1,21 +1,22 @@
-import PropTypes from "prop-types"
+import { compose } from 'recompose'
+import PropTypes from 'prop-types'
 
-const Card = (props) => (
+const Card = (country) => (
   <div className="card">
-    <h2 className="title">{props.name}</h2>
-    <div className="subtitle">{props.capital}</div>
-    <div className="tag">{props.continent}</div>
+    <h2 className="title">{country.name}</h2>
+    <div className="subtitle">{country.capital}</div>
+    <div className="tag">{country.continent}</div>
     <div className="lists">
       <div className="list">
         <div>Languages:</div>
         <ul>
-          {props.languages.map(language => (<li>{language}</li>))}
+          {country.languages.map(language => (<li key={language}>{language}</li>))}
         </ul>
       </div>
       <div className="list">
         <div>TLDs:</div>
         <ul>
-          {props.tlds.map(tld => (<li>{tld}</li>))}
+          {country.tlds.map(tld => (<li key={tld}>{tld}</li>))}
         </ul>
       </div>
     </div>
@@ -38,4 +39,4 @@ Card.defaultProps = {
   tlds: [],
 }
 
-export default Card
+export default compose()(Card)
