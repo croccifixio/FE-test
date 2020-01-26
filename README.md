@@ -19,7 +19,7 @@ npm run start
 Running the server (without docker):
 
 ```
-cd frontend
+cd frontend-1
 npm ci
 npm run dev
 ```
