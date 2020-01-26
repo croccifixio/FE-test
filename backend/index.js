@@ -47,7 +47,7 @@ const init = async () => {
         const { name } = request.params
 
         try {
-          const response = await axios.get(`/name/${name}`)
+          const response = await axios.get(`/name/${name}?fields=capital;languages;name;region;topLevelDomain`)
 
           return processCountry(response.data[0])
         }
