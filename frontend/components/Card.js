@@ -10,13 +10,13 @@ const Card = (country) => (
       <div className="list">
         <div>Languages:</div>
         <ul>
-          {country.languages.map(language => (<li key={language}>{language}</li>))}
+          {country.languages.map(language => (<li className="language" key={language}>{language}</li>))}
         </ul>
       </div>
       <div className="list">
         <div>TLDs:</div>
         <ul>
-          {country.tlds.map(tld => (<li key={tld}>{tld}</li>))}
+          {country.tlds.map(tld => (<li className="tld" key={tld}>{tld}</li>))}
         </ul>
       </div>
     </div>
