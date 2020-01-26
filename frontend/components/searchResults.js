@@ -4,7 +4,7 @@ import Card from './card'
 
 const SearchResults = ({ item: country }) => (
   <div className="results">
-    {country && country.name &&
+    {country.name &&
       <Card
         capital={country.capital}
         continent={country.continent}

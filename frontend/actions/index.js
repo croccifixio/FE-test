@@ -1,14 +1,24 @@
 import {
   COUNTRY_CLEAR,
-  COUNTRY_SET,
+  FETCH_COUNTRY_FAILURE,
+  FETCH_COUNTRY_REQUEST,
+  FETCH_COUNTRY_SUCCESS,
 } from '../constants/actionTypes'
 
-export const clearCountry = (item) => ({ type: COUNTRY_CLEAR, item })
+export const clearCountry = () => ({ type: COUNTRY_CLEAR })
 
-export const setCountry = (item) => ({ type: COUNTRY_SET, item })
+export const fetchCountryFailure = (err) => ({ type: FETCH_COUNTRY_FAILURE, err })
+
+export const fetchCountryRequest = () => ({ type: FETCH_COUNTRY_REQUEST })
+
+export const fetchCountrySuccess = (item) => ({ type: FETCH_COUNTRY_SUCCESS, item })
 
 export const fetchCountry = (searchTerm) =>
-  (dispatch) => fetch(`${process.env.BACKEND_URL}:${process.env.BACKEND_PORT}/${process.env.COUNTRIES_ENDPOINT}/${searchTerm}`).then(
-    async (response) => dispatch(setCountry(await response.json())),
-    console.error,
-  )
+  (dispatch) => {
+    dispatch(fetchCountryRequest())
+
+    return fetch(`${process.env.BACKEND_URL}:${process.env.BACKEND_PORT}/${process.env.COUNTRIES_ENDPOINT}/${searchTerm}`)
+      .then((res) => res.json())
+      .then((body) => dispatch(fetchCountrySuccess(body)))
+      .catch((err) => dispatch(fetchCountryFailure(err)))
+  }
