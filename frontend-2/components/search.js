@@ -2,24 +2,31 @@ import { useEffect, useState } from 'react'
 import { compose } from 'recompose'
 import { useDebounce } from 'use-lodash-debounce'
 
+const splitSearchTerms = (searchTerms) => searchTerms
+  .split(',')
+  .map(string => string.trim())
+  .filter(string => string.length > 0)
+
 const Search = (props) => {
-  const { clearCountry, fetchCountry } = props
-  const [searchTerm, setSearchTerm] = useState('')
-  const debouncedSearchTerm = useDebounce(searchTerm, 400)
+  const { clearCountries, clearSearchTerms, fetchCountries } = props
+  const [searchTerms, setSearchTerms] = useState('')
+  const debouncedSearchTerms = useDebounce(searchTerms, 400)
 
   useEffect(
     () => {
-      if (debouncedSearchTerm) {
-        fetchCountry(debouncedSearchTerm)
+      if (debouncedSearchTerms) {
+        fetchCountries(splitSearchTerms(debouncedSearchTerms))
       } else {
-        clearCountry()
+        clearCountries()
+        clearSearchTerms()
       }
-    }, [debouncedSearchTerm]
+    }, [debouncedSearchTerms]
   )
 
   return (
     <form className="form">
-      <input type="search" onChange={() => setSearchTerm(event.target.value)} />
+      <p>Search for multiple countries by separating search terms with a comma (e.g. "austr, republic of, united")</p>
+      <input type="search" onChange={() => setSearchTerms(event.target.value)} />
     </form>
   )
 }

@@ -5,23 +5,27 @@ import {
   pure,
 } from 'recompose'
 import {
-  clearCountry,
-  fetchCountry,
+  clearCountries,
+  clearSearchTerms,
+  fetchCountries,
 } from '../actions'
 import {
-  selectCountryItem,
+  selectCountryData,
+  selectSearchTerms,
 } from '../selectors'
 import Page from '../components/page'
 
 export default compose(
   connect(
     createSelector(
-      selectCountryItem(),
-      (item, data) => ({ item, data }),
+      selectCountryData(),
+      selectSearchTerms(),
+      (data, searchTerms) => ({ data, searchTerms }),
     ),
     {
-      clearCountry,
-      fetchCountry,
+      clearCountries,
+      clearSearchTerms,
+      fetchCountries,
     },
   ),
   pure,

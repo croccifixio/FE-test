@@ -2,8 +2,14 @@ import { createSelector } from 'reselect'
 
 export const selectState = () => state => state.country
 
-export const selectCountryItem = () =>
+export const selectCountryData = () =>
   createSelector(
     selectState(),
-    country => country.item,
+    country => country.data,
+  )
+
+export const selectSearchTerms = () =>
+  createSelector(
+    selectState(),
+    country => country.searchTerms,
   )
