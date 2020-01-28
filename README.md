@@ -83,3 +83,27 @@ Running tests:
 ```
 npm run test
 ```
+
+## Question 4
+
+### Development
+
+#### Backend
+
+N/A
+
+#### Frontend
+
+Running the server (without docker):
+
+```
+cd frontend-4
+npm ci
+npm run dev
+```
+
+Running tests:
+
+```
+npm run test
+```
