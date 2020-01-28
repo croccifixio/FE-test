@@ -1,0 +1,17 @@
+@keyframes pulse
+  from
+    transform scale(1)
+  to
+    transform scale(1.2)
+
+.slots
+  display grid
+  grid-gap 40px
+  grid-template-columns repeat(3, 1fr)
+
+  .slot
+    font-size 40px
+    width 2ch
+
+    &[data-animate="true"]
+      animation pulse .33s cubic-bezier(0.445, 0.05, 0.55, 0.95) 2 alternate both
