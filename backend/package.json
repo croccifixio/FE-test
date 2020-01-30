@@ -9,10 +9,14 @@
   "author": "Emmanuel Odongo",
   "license": "MIT",
   "dependencies": {
+    "@hapi/boom": "^9.0.0",
     "@hapi/hapi": "^19.0.5",
     "axios": "^0.19.1",
+    "cookie": "^0.4.0",
     "dotenv": "^8.2.0",
+    "hapi-auth-jwt2": "^8.8.1",
     "hapi-cors": "^1.0.3",
+    "jsonwebtoken": "^8.5.1",
     "nodemon": "^2.0.2",
     "ramda": "^0.26.1"
   }
