@@ -3,6 +3,7 @@ import EmailValidator from 'email-validator'
 import {
   ERROR_SET,
   FIELD_VALIDATE,
+  JWT_TOKEN_RETRIEVE,
   SUCCESS_SHOW,
   USER_SET,
   VALUE_SET,
@@ -30,13 +31,13 @@ const getError = (value) =>
   }
 
 export const initialState = {
-  user: null,
+  user: {},
   errors: {},
   values: {},
 }
 
 export default (state = initialState, action) => {
-  const { error, name, rules, type, user, value } = action
+  const { error, name, rules, token, type, user, value } = action
 
   switch (type) {
     case ERROR_SET: {
@@ -61,10 +62,23 @@ export default (state = initialState, action) => {
       }
     }
 
+    case JWT_TOKEN_RETRIEVE: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          token,
+        },
+      }
+    }
+
     case USER_SET: {
       return {
         ...state,
-        user,
+        user: {
+          ...state.user,
+          ...user,
+        },
       }
     }
 

@@ -5,12 +5,6 @@ import Input from './input'
 
 export const formFields = [
   {
-    label: 'name',
-    name: 'name',
-    type: 'name',
-    rules: { required: true },
-  },
-  {
     label: 'email',
     name: 'email',
     type: 'email',
@@ -34,7 +28,6 @@ const Form = (props) => {
     event.preventDefault()
     setIsSubmitAttempted(true)
 
-    console.log(`errors =>`, errors)
     if (isInvalid(errors)) return
 
     submitForm()
@@ -45,7 +38,7 @@ const Form = (props) => {
       {formFields.map((inputProps) =>
         <Input {...props} {...inputProps} key={inputProps.name} />
       )}
-      <button type="submit">Sign up</button>
+      <button type="submit">Log in</button>
     </form>
   )
 }

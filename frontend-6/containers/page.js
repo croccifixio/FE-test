@@ -5,6 +5,7 @@ import {
   pure,
 } from 'recompose'
 import {
+  checkForJWTToken,
   setValue,
   submitForm,
   validate,
@@ -23,6 +24,7 @@ export default compose(
       (user, errors) => ({ user, errors }),
     ),
     {
+      checkForJWTToken,
       setValue,
       submitForm,
       validate,

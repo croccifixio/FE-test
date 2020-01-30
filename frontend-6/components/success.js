@@ -1,7 +1,13 @@
 const Success = ({ user }) => (
   <div className="success">
-    <h1>Great news, {user.name}! You're account has been created.</h1>
-    <p>Please verify you're account by clicking the activation link we sent to your email at <b>{user.email}</b></p>
+    {user.name
+      ? <h1>Welcome back, {user.name}!</h1>
+      : <div className="token-text">
+          <h1>🦄 This is some hidden text 🌈</h1>
+          <p>You're token let's you see it!</p>
+          <p>If this were a full blown application, it would give you access so much more.</p>
+        </div>
+    }
   </div>
 )
 

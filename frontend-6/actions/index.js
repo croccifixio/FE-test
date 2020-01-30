@@ -1,22 +1,33 @@
 import fetch from 'isomorphic-unfetch'
 
 import {
-  CREATE_USER_FAILURE,
-  CREATE_USER_REQUEST,
-  CREATE_USER_SUCCESS,
   ERROR_SET,
   FIELD_VALIDATE,
   FORM_SUBMIT,
+  JWT_TOKEN_RETRIEVE,
+  LOGIN_FAILURE,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
   SUCCESS_SHOW,
   USER_SET,
   VALUE_SET,
 } from '../constants/actionTypes'
 
-export const createUserFailure = () => ({ type: CREATE_USER_FAILURE })
+export const checkForJWTToken = () =>
+  (dispatch) => {
+    const token = localStorage.getItem('token')
+    if (!token) return
 
-export const createUserRequest = () => ({ type: CREATE_USER_REQUEST })
+    dispatch(retrieveJWTToken(token))
+  }
 
-export const createUserSuccess = () => ({ type: CREATE_USER_SUCCESS })
+export const loginFailure = () => ({ type: LOGIN_FAILURE })
+
+export const loginRequest = () => ({ type: LOGIN_REQUEST })
+
+export const loginSuccess = () => ({ type: LOGIN_SUCCESS })
+
+export const retrieveJWTToken = (token) => ({ type: JWT_TOKEN_RETRIEVE, token })
 
 export const setError = (error) => ({ type: ERROR_SET, error })
 
@@ -26,7 +37,7 @@ export const setValue = (name, value) => ({ type: VALUE_SET, name, value })
 
 export const submitForm = () =>
   async (dispatch, getState) => {
-    dispatch(createUserRequest())
+    dispatch(loginRequest())
 
     try {
       const payload = {
@@ -34,22 +45,25 @@ export const submitForm = () =>
         name: getState().formState.values.name,
         password: getState().formState.values.password,
       }
-      const response = await fetch(`${process.env.BACKEND_URL}:${process.env.BACKEND_PORT}/${process.env.SIGN_UP_ENDPOINT}`, {
+      const response = await fetch(`${process.env.BACKEND_URL}:${process.env.BACKEND_PORT}/${process.env.LOGIN_ENDPOINT}`, {
         method: 'POST',
         body: JSON.stringify(payload),
       })
       const user = await response.json()
 
       if (user.success) {
-        dispatch(createUserSuccess())
+        const { token } = user
+
+        localStorage.setItem('token', token)
+        dispatch(loginSuccess())
         dispatch(setUser(user))
       } else {
-        dispatch(createUserFailure(user.err))
+        dispatch(loginFailure(user.err))
         dispatch(setError(user.err))
       }
     }
     catch (err) {
-      dispatch(createUserFailure(err))
+      dispatch(loginFailure(err))
     }
   }
 
