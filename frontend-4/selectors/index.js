@@ -5,7 +5,7 @@ export const selectState = () => state => state.slotsState
 export const selectPoints = () =>
   createSelector(
     selectState(),
-    pointsState => pointsState.points
+    slotsState => slotsState.points
   )
 
 export const selectSlots = () =>
