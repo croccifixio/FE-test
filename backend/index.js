@@ -6,11 +6,16 @@ const hapi = require('@hapi/hapi')
 const R = require('ramda')
 
 const API_URL = process.env.API_URL
-const COUNTRIES_ENDPOINT = process.env.API_URL
+const COUNTRIES_ENDPOINT = process.env.COUNTRIES_ENDPOINT
 const FRONTEND_PORT = process.env.FRONTEND_PORT
 const FRONTEND_URL = process.env.FRONTEND_URL
+const USERS_ENDPOINT = process.env.USERS_ENDPOINT
 
 axios.defaults.baseURL = API_URL
+
+let users = []
+
+const isEmailInUse = (user) => !!R.find(R.propEq('email', user.email))(users)
 
 const processCountry = (country) => {
   const {
@@ -42,7 +47,23 @@ const init = async () => {
   server.route([
     {
       method: 'GET',
-      path: '/countries/{name}',
+      path: `/${COUNTRIES_ENDPOINT}`,
+      handler: async (request) => {
+        try {
+          const response = await axios.get(`/all?fields=capital;languages;name;region;topLevelDomain`)
+
+          return response.data.map(processCountry)
+        }
+        catch (error) {
+          return {
+            err: `Unable to process request: ${error}`
+          }
+        }
+      },
+    },
+    {
+      method: 'GET',
+      path: `/${COUNTRIES_ENDPOINT}/{name}`,
       handler: async (request) => {
         const { name } = request.params
 
@@ -56,6 +77,25 @@ const init = async () => {
             err: `Unable to process request: ${error}`
           }
         }
+      },
+    },
+    {
+      method: 'POST',
+      path: `/${USERS_ENDPOINT}`,
+      handler: async (request) => {
+        const { payload } = request
+        const user = JSON.parse(payload)
+
+        if (isEmailInUse(user)) {
+          return {
+            success: false,
+            err: `An account with the email ${user.email} already exists`,
+          }
+        }
+
+        users = [...users, user]
+
+        return R.omit(['password'], { ...user, success: true })
       },
     },
   ])
