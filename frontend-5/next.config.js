@@ -6,6 +6,6 @@ module.exports = withStylus({
   env: {
     BACKEND_PORT: process.env.BACKEND_PORT,
     BACKEND_URL: process.env.BACKEND_URL,
-    USERS_ENDPOINT: process.env.USERS_ENDPOINT,
+    SIGN_UP_ENDPOINT: process.env.SIGN_UP_ENDPOINT,
   }
 })

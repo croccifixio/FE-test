@@ -34,7 +34,7 @@ export const submitForm = () =>
         name: getState().formState.values.name,
         password: getState().formState.values.password,
       }
-      const response = await fetch(`${process.env.BACKEND_URL}:${process.env.BACKEND_PORT}/${process.env.USERS_ENDPOINT}`, {
+      const response = await fetch(`${process.env.BACKEND_URL}:${process.env.BACKEND_PORT}/${process.env.SIGN_UP_ENDPOINT}`, {
         method: 'POST',
         body: JSON.stringify(payload),
       })

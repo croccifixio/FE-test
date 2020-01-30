@@ -11,7 +11,7 @@ const COUNTRIES_ENDPOINT = process.env.COUNTRIES_ENDPOINT
 const FRONTEND_PORT = process.env.FRONTEND_PORT
 const FRONTEND_URL = process.env.FRONTEND_URL
 const JWT_KEY = process.env.JWT_KEY
-const USERS_ENDPOINT = process.env.USERS_ENDPOINT
+const SIGN_UP_ENDPOINT = process.env.SIGN_UP_ENDPOINT
 
 axios.defaults.baseURL = API_URL
 
@@ -120,7 +120,7 @@ const init = async () => {
     {
       method: 'POST',
       config: { auth: false },
-      path: `/${USERS_ENDPOINT}`,
+      path: `/${SIGN_UP_ENDPOINT}`,
       handler: async (request) => {
         const { payload } = request
         const user = JSON.parse(payload)
