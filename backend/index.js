@@ -11,6 +11,7 @@ const COUNTRIES_ENDPOINT = process.env.COUNTRIES_ENDPOINT
 const FRONTEND_PORT = process.env.FRONTEND_PORT
 const FRONTEND_URL = process.env.FRONTEND_URL
 const JWT_KEY = process.env.JWT_KEY
+const LOGIN_ENDPOINT = process.env.LOGIN_ENDPOINT
 const SIGN_UP_ENDPOINT = process.env.SIGN_UP_ENDPOINT
 
 axios.defaults.baseURL = API_URL
@@ -20,7 +21,11 @@ let users = []
 
 const generateJWT = (payload) => JWT.sign(payload, JWT_KEY, {algorithm: 'HS256'})
 
+const getUser = (email) => R.find(R.propEq('email', email))(users)
+
 const isEmailInUse = (email) => !!R.find(R.propEq('email', email))(users)
+
+const isPasswordsMatch = (password) => !!R.find(R.propEq('password', password))(users)
 
 const validate = async (decodedEmail) => ({ isValid: isEmailInUse(decodedEmail) })
 
@@ -137,6 +142,30 @@ const init = async () => {
 
         return R.omit(['password'], {
           ...user,
+          token,
+          success: true,
+        })
+      },
+    },
+    {
+      method: 'POST',
+      config: { auth: false },
+      path: `/${LOGIN_ENDPOINT}`,
+      handler: async (request) => {
+        const { payload } = request
+        const user = JSON.parse(payload)
+
+        if (!isEmailInUse(user.email) || !isPasswordsMatch(user.password)) {
+          return {
+            success: false,
+            err: 'Invalid credentials provided',
+          }
+        }
+
+        const token = generateJWT(user.email)
+
+        return R.omit(['password'], {
+          ...getUser(user.email),
           token,
           success: true,
         })
