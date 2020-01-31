@@ -1,5 +1,15 @@
 # Front End Developer Test
 
+## Live Demos
+
+- [Backend](http://207.246.93.69:3000/)
+- [Question 1](http://207.246.93.69:8001/)
+- [Question 2](http://207.246.93.69:8002/)
+- [Question 3](http://207.246.93.69:8003/)
+- [Question 4](http://207.246.93.69:8004/)
+- [Question 5](http://207.246.93.69:8005/)
+- [Question 6](http://207.246.93.69:8006/)
+
 ## Notes
 
 1. Input fields are built using React hooks and debouncing, following this [example](https://dev.to/gabe_ragland/debouncing-with-react-hooks-jci).
