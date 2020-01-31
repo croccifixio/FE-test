@@ -7,6 +7,7 @@ const R = require('ramda')
 const JWT = require('jsonwebtoken')
 
 const API_URL = process.env.API_URL
+const BACKEND_PORT = process.env.BACKEND_PORT
 const COUNTRIES_ENDPOINT = process.env.COUNTRIES_ENDPOINT
 const FRONTEND_PORT = process.env.FRONTEND_PORT
 const FRONTEND_URL = process.env.FRONTEND_URL
@@ -49,7 +50,7 @@ const processCountry = (country) => {
 
 const init = async () => {
   const server = hapi.server({
-    port: '3000',
+    port: BACKEND_PORT,
     host: '0.0.0.0',
     routes: {
       cors: false,
