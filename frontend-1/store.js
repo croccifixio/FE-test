@@ -11,7 +11,7 @@ import reducers, { initialState } from './reducers'
 const dev = process.env.NODE_ENV !== 'production'
 
 export default (state = initialState) => {
-  const middlewares = dev ? [thunkMiddleware, createLogger()] : []
+  const middlewares = dev ? [thunkMiddleware, createLogger()] : [thunkMiddleware]
 
   return createStore(reducers, state, compose(applyMiddleware(...middlewares)))
 }
