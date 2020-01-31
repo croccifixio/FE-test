@@ -72,7 +72,6 @@ const init = async () => {
       handler: function(request, h) {
         return {
           text: 'Token not required',
-          token: generateJWT(people['1']),
         }
       }
     },
@@ -92,7 +91,7 @@ const init = async () => {
       path: `/${COUNTRIES_ENDPOINT}`,
       handler: async (request) => {
         try {
-          const response = await axios.get(`/all?fields=capitallanguagesnameregiontopLevelDomain`)
+          const response = await axios.get(`/all?fields=capital;languages;name;region;topLevelDomain`)
 
           return response.data.map(processCountry)
         }
@@ -111,7 +110,7 @@ const init = async () => {
         const { name } = request.params
 
         try {
-          const response = await axios.get(`/name/${name}?fields=capitallanguagesnameregiontopLevelDomain`)
+          const response = await axios.get(`/name/${name}?fields=capital;languages;name;region;topLevelDomain`)
 
           return processCountry(response.data[0])
         }
