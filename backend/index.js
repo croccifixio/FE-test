@@ -72,7 +72,14 @@ const init = async () => {
       config: { auth: false },
       handler: function(request, h) {
         return {
-          text: 'Token not required',
+          endpoints: [
+            "/",
+            '/restricted',
+            `/${COUNTRIES_ENDPOINT}`,
+            `/${COUNTRIES_ENDPOINT}/{name}`,
+            `/${SIGN_UP_ENDPOINT}`,
+            `/${LOGIN_ENDPOINT}`,
+          ],
         }
       }
     },
@@ -178,6 +185,12 @@ const init = async () => {
     options: {
       origins: [
         `${FRONTEND_URL}:${FRONTEND_PORT}`,
+        'http://207.246.93.69:8001',
+        'http://207.246.93.69:8002',
+        'http://207.246.93.69:8003',
+        'http://207.246.93.69:8004',
+        'http://207.246.93.69:8005',
+        'http://207.246.93.69:8006',
       ],
     },
   })
