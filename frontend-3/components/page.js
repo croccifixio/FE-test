@@ -4,12 +4,22 @@ import { compose } from 'recompose'
 import Filter from './filter'
 import FilterResults from './filterResults'
 
-const Page = (props) => (
-  <div className="wrapper">
-    <h1>Country Filter</h1>
-    <Filter {...props} />
-    <FilterResults {...props} />
-  </div>
-)
+class Page extends React.Component {
+  componentDidMount() {
+    const { fetchCountries } = this.props
+
+    fetchCountries()
+  }
+
+  render() {
+    return (
+      <div className="wrapper">
+        <h1>Country Filter</h1>
+        <Filter {...this.props} />
+        <FilterResults {...this.props} />
+      </div>
+    )
+  }
+}
 
 export default compose()(Page)
